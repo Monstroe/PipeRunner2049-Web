@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import Button from '../../components/Button/Button';
@@ -9,6 +9,14 @@ import axios from 'axios';
 function HomePage() {
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get('/api/').then((response) => {
+      console.log(response.data);
+    }).catch((error) => {
+      console.log("Could not connect: " + error);
+    });
+  });
 
   const joinRoom = () => {
     console.log("Joining Room");
