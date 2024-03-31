@@ -1,5 +1,5 @@
 declare global {
-  interface Crypto {
+  interface crypto {
     randomUUID: () => string;
   }
 }
