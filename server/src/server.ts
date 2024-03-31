@@ -1,3 +1,9 @@
+declare global {
+  interface Crypto {
+    randomUUID: () => string;
+  }
+}
+
 import express, { Express, Request, Response } from "express";
 import jwt, { JwtPayload, VerifyErrors, VerifyOptions } from "jsonwebtoken";
 import { createServer } from "http";
