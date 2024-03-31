@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+  background-color: #252422;
+  min-height: 100vh;
+  font-size: calc(10px + 1em);
+}
+
+h1 {
+  font-size: 3em;
+  color: #EB5E28;
+  text-shadow: 0 0 20px #EB5E28;
+  animation: ghostFloat 5s infinite;
+  border-radius: 10px;
+}
+
+@keyframes ghostFloat {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+p {
+  color: #FFFCF2;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+a {
+  color: #EB5E28;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
