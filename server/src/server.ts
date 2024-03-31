@@ -19,7 +19,7 @@ const SECRET_KEY = process.env.KEY;
 const app: Express = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, '../../client/build')));
+//app.use(express.static(path.join(__dirname, '../../client/build')));
 const httpServer = createServer(app);
 
 
@@ -78,9 +78,9 @@ const authenticateToken = (req: Request, res: Response, next: any) => {
 
 // ------------------- Authentication Calls -------------------
 
-app.get('*', (req, res) => {
+/*app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
+});*/
 
 app.get("/api", (req: Request, res: Response) => {
   res.send("Server is running");

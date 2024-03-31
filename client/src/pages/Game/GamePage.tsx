@@ -71,7 +71,7 @@ function GamePage() {
             }
         }
 
-        axios.post('http://localhost:5000/api/phantom/spawn', data).then((response) => {
+        axios.post('http://167.71.191.147:5000/api/phantom/spawn', data).then((response) => {
             console.log('Click response: ', response);
             alert('Phantom spawned! Cooldown is 10 seconds.');
         }).catch((error) => {
