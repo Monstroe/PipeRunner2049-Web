@@ -127,6 +127,9 @@ app.get("/api/room/close", authenticateToken, (req: Request, res: Response) => {
   const id = (jwt.decode(req.headers.authorization?.split(" ")[1]!) as JwtPayload).userID;
   const room = rooms[id];
   delete uClients[room.unityClient.userID];
+  for (const webClient of room.webClients) {
+    delete rClients[webClient.userID];
+  }
   delete rooms[id];
 });
 
