@@ -1,20 +1,26 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import Navbar from '../../components/Navbar/Navbar';
-import io from 'socket.io-client';
+import axios from 'axios';
 
 function HomePage() {
 
-  const socket = io('http://localhost:5000');
+  const navigate = useNavigate();
 
   const joinRoom = () => {
     console.log("Joining Room");
-    socket.emit('joinroom');
-  }
 
-  fetch('/').then(res => res.text().then(text => console.log(text)));
+    axios.get('/api/room/join').then((response) => {
+      let id = response.data.id;
+      navigate(`/game/${id}`);
+    }).catch((error) => {
+      console.log(error);
+      alert("No active games to join!");
+    });
+  }
 
   return (
     <div className="Home">
