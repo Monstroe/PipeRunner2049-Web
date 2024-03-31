@@ -1,8 +1,8 @@
-declare global {
+/*declare global {
   interface crypto {
     randomUUID: () => string;
   }
-}
+}*/
 
 import express, { Express, Request, Response } from "express";
 import jwt, { JwtPayload, VerifyErrors, VerifyOptions } from "jsonwebtoken";
@@ -11,6 +11,7 @@ import { UnityClient, ReactClient, Room, RoomData, PositionData, Phantom } from 
 import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
+import crypto from "crypto";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
