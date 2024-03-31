@@ -12,25 +12,41 @@ function GamePage() {
     const navigate = useNavigate();
 
     /*useEffect(() => {
-        console.log('Game ID: ', gameID);
         axios.get('/api/room/verify').then((response) => {
             console.log('S resp: ' + response);
         }).catch((error) => {
             alert('Invalid Game ID');
             navigate('/');
         });
-        console.log('asdfhasdlkfasdf Game ID');
-        if(gameID === undefined) {
-            alert('No Game ID Provided');
-            navigate('/');
-        }
-    }, [gameID, navigate]);*/
 
+    }, [navigate]);*/
 
-    const onPhantomClick = () => {
-        axios.post('/api/phantom/spawn').then((response) => {
-            console.log('Phantom clicked');
-        });
+    /*useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/api/pos/player', {
+                    params: {
+                        rClient: clientID
+                    },
+                });
+                console.log('Data: ', response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        const interval = setInterval(() => {
+            fetchData();
+        }, 1000); // 200 milliseconds -> 5 times per second
+
+        // Clean-up function to clear the interval when the component unmounts
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);*/
+
+    /*const onPhantomClick = () => {
+        console.log('Phantom clicked');
     }
 
     const onAudioClick = () => {
@@ -39,7 +55,7 @@ function GamePage() {
 
     const onFogClick = () => {
         console.log('Fog clicked');
-    }
+    }*/
 
     const handleClick = (x: number, y: number, cW: number, cH: number) => {
         const normalizedX = x / cW;
@@ -54,23 +70,25 @@ function GamePage() {
                 "rot": 0
             }
         }
-        console.log('Click data: ', data);
+
         axios.post('/api/phantom/spawn', data).then((response) => {
             console.log('Click response: ', response);
+            alert('Phantom spawned! Cooldown is 10 seconds.');
         }).catch((error) => {
             console.log('Click error: ', error);
+            alert('Invalid Game ID (maybe the room was closed?)');
+            navigate('/');
         });
     }
+
+    
 
     return (
         <div className="Game-body">
             <Map imageSrc={Img} onClick={handleClick}/>
-            <Toolbar onPhantomClick={onPhantomClick} onAudioClick={onAudioClick} onFogClick={onFogClick} />
+            {/*<Toolbar onPhantomClick={onPhantomClick} onAudioClick={onAudioClick} onFogClick={onFogClick} />*/}
         </div>
     );
 }
 
 export default GamePage;
-
-
-/*<canvas className="map" ref={canvasRef} width={canvasRef.current?.width} height={canvasRef.current?.height}/>*/

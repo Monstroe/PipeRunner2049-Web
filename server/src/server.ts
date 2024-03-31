@@ -123,6 +123,7 @@ app.get("/api/room/verify", (req: Request, res: Response) => {
 });
 
 app.get("/api/room/close", authenticateToken, (req: Request, res: Response) => {
+  console.log("Closing Room");
   const id = (jwt.decode(req.headers.authorization?.split(" ")[1]!) as JwtPayload).userID;
   const room = rooms[id];
   delete uClients[room.unityClient.userID];
@@ -138,14 +139,22 @@ app.post("/api/pos/player", authenticateToken, (req: Request, res: Response) => 
   const id = (jwt.decode(req.headers.authorization?.split(" ")[1]!) as JwtPayload).userID;
   const { playerPos } = req.body;
   const room = rooms[id];
+  if(room.roomData === undefined) {
+    return res.status(404).send("Room Data Not Found");
+  }
   room.roomData!.playerPos = playerPos;
 });
 // GET DATA FROM UNITY CLIENT
 // CALLED BY REACT CLIENT
 app.get("/api/pos/player", (req: Request, res: Response) => {
+  console.log("Getting Player Pos:" + JSON.stringify(req.params));
   const { rClient } = req.body;
+  console.log("Getting Player Pos: " + rClient);
+  if(!rClients[rClient]) {
+    return res.status(403).send("Invalid Client");
+  }
   const room = rooms[rClients[rClient].unityID];
-  res.json(room.roomData!.phantomPos);
+  res.json(room.roomData!.playerPos);
 });
 
 
@@ -201,6 +210,11 @@ app.post("/api/phantom/spawn", (req: Request, res: Response) => {
   }
 
   const room = rooms[rClients[rClient].unityID];
+  if(room === undefined) {
+    delete rClients[rClient];
+    console.log(rClients);
+    return res.status(404).send("Room Data Not Found");
+  }
 
   if (spawnCooldown) {
     const cooldownTimeLeft = 10000 - (Date.now() - room.roomData!.lastSpawnTime);
@@ -214,7 +228,7 @@ app.post("/api/phantom/spawn", (req: Request, res: Response) => {
 
   spawnCooldown = true;
   setTimeout(() => {
-    console.log("Cooldown Started");
+    console.log("Cooldown Ended");
     spawnCooldown = false;
   }, 10000); // 10 seconds cooldown
 
