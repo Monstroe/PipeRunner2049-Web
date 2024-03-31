@@ -1,8 +1,8 @@
-declare global {
+/*declare global {
   interface Crypto {
     randomUUID: () => string;
   }
-}
+}*/
 
 import express, { Express, Request, Response } from "express";
 import jwt, { JwtPayload, VerifyErrors, VerifyOptions } from "jsonwebtoken";
@@ -265,6 +265,6 @@ app.get("/api/phantom/new", authenticateToken, (req: Request, res: Response) => 
 
 // ------------------- Server Start -------------------
 
-httpServer.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`[server]: Server is running at http://localhost:${PORT}`);
 });

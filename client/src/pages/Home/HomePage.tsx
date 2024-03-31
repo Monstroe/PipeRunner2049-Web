@@ -11,7 +11,7 @@ function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/').then((response) => {
+    axios.get('http://localhost:5000/api/').then((response) => {
       console.log(response.data);
     }).catch((error) => {
       console.log("Could not connect: " + error);
@@ -21,7 +21,7 @@ function HomePage() {
   const joinRoom = () => {
     console.log("Joining Room");
 
-    axios.get('/api/room/join').then((response) => {
+    axios.get('http://localhost:5000/api/room/join').then((response) => {
       let id = response.data.id;
       navigate(`/game/${id}`);
     }).catch((error) => {

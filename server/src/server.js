@@ -233,6 +233,6 @@ app.get("/api/phantom/new", authenticateToken, (req, res) => {
     res.json();
 });
 // ------------------- Server Start -------------------
-httpServer.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`[server]: Server is running at http://localhost:${PORT}`);
 });
